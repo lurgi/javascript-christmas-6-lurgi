@@ -3,7 +3,7 @@ class ReserveDate {
     this.reserveDate = number;
   }
 
-  applyMenuDiscount() {}
+  applyDateDiscount() {}
 }
 
 export default ReserveDate;

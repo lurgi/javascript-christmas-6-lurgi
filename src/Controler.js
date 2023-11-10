@@ -1,11 +1,10 @@
 class Controler {
-  #reserveDate;
+  setReserveDate(dateClass) {
+    this.reserveDate = dateClass;
+  }
 
-  #reserveMenu;
-
-  constructor(reserveDate, reserveMenu) {
-    this.#reserveDate = reserveDate;
-    this.#reserveMenu = reserveMenu;
+  setReserveMenu(menuClass) {
+    this.reserveMenu = menuClass;
   }
 
   getPrintInfo() {
@@ -13,8 +12,8 @@ class Controler {
   }
 
   #applyDiscount() {
-    this.#reserveDate.applyDateDiscount();
-    this.#reserveMenu.applyMenuDiscount();
+    this.reserveDate.applyDateDiscount();
+    this.reserveMenu.applyMenuDiscount();
   }
 }
 

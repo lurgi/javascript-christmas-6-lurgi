@@ -8,7 +8,9 @@ class ReserveMenu {
     });
   }
 
-  applyDateDiscount() {}
+  applyMenuDiscount() {
+    // ...
+  }
 }
 
 export default ReserveMenu;
