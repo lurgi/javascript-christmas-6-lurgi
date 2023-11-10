@@ -7,6 +7,8 @@ class ReserveMenu {
       this.menu[menuName] = menuCount;
     });
   }
+
+  applyDateDiscount() {}
 }
 
 export default ReserveMenu;

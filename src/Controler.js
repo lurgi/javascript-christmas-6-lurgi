@@ -1,3 +1,21 @@
-class Conteroler {}
+class Controler {
+  #reserveDate;
 
-export default Conteroler;
+  #reserveMenu;
+
+  constructor(reserveDate, reserveMenu) {
+    this.#reserveDate = reserveDate;
+    this.#reserveMenu = reserveMenu;
+  }
+
+  getPrintInfo() {
+    this.#applyDiscount();
+  }
+
+  #applyDiscount() {
+    this.#reserveDate.applyDateDiscount();
+    this.#reserveMenu.applyMenuDiscount();
+  }
+}
+
+export default Controler;
