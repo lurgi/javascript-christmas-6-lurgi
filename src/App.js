@@ -2,7 +2,8 @@ import InputView from './InputView';
 
 class App {
   async run() {
-    InputView.readDate();
+    await InputView.readDate();
+    await InputView.readMenu();
   }
 }
 
