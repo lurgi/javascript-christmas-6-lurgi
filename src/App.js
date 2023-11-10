@@ -1,5 +1,9 @@
+import InputView from './InputView';
+
 class App {
-  async run() {}
+  async run() {
+    InputView.readDate();
+  }
 }
 
 export default App;
