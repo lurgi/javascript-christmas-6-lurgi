@@ -35,4 +35,16 @@ describe('할인 로직', () => {
     const RESERVE_DATE = new ReserveDate(number);
     expect(RESERVE_DATE.isWeekEnd()).toBeTruthy();
   });
+
+  const STAR = [[3], [10], [17], [24], [25], [31]];
+  test.each(STAR)('별', (number) => {
+    const RESERVE_DATE = new ReserveDate(number);
+    expect(RESERVE_DATE.isStarDay()).toBeTruthy();
+  });
+
+  const NOT_STAR = [[4], [9], [11], [26], [30]];
+  test.each(NOT_STAR)('별 아님', (number) => {
+    const RESERVE_DATE = new ReserveDate(number);
+    expect(RESERVE_DATE.isStarDay()).toBeFalsy();
+  });
 });
