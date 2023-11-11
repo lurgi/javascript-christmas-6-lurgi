@@ -31,3 +31,13 @@ describe('음료만 주문 여부', () => {
     expect(() => new ReserveMenu(menu)).toThrow('[ERROR]');
   });
 });
+
+describe('메뉴 20개 넘는가?', () => {
+  const ERROR_CASE = [
+    [['티본스테이크-5', '바비큐립-5', '초코케이크-5', '제로콜라-6']],
+    [['타파스-20', '제로콜라-1']],
+  ];
+  test.each(ERROR_CASE)('20개 초과 실패', (menu) => {
+    expect(() => new ReserveMenu(menu)).toThrow('[ERROR]');
+  });
+});
