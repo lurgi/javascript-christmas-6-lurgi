@@ -20,6 +20,11 @@ const OutputView = {
 
   printMenu(menu) {
     Console.print('<주문 메뉴>');
+    Object.keys(menu).forEach((name) => {
+      const CNT = menu[name];
+      Console.print(`${name} ${CNT}개`);
+    });
+    Console.print(`\n`);
   },
 
   printAmount(amount) {
