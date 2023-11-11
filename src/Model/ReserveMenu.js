@@ -125,6 +125,15 @@ class ReserveMenu {
     });
     return discountAmount;
   }
+
+  applyWeekEndDiscount() {
+    let discountAmount = 0;
+    [...this.main.keys()].forEach((name) => {
+      const CNT = this.main.get(name);
+      discountAmount += CNT * 2023;
+    });
+    return discountAmount;
+  }
 }
 
 export default ReserveMenu;
