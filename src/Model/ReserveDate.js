@@ -1,4 +1,5 @@
 const WEEKEND = [1, 2, 8, 9, 15, 16, 22, 23, 29, 30];
+const STARDAY = [3, 10, 17, 24, 25, 31];
 
 class ReserveDate {
   constructor(number) {
@@ -29,6 +30,10 @@ class ReserveDate {
 
   isWeekEnd() {
     return WEEKEND.includes(this.reserveDate);
+  }
+
+  isStarDay() {
+    return STARDAY.includes(this.reserveDate);
   }
 }
 
