@@ -23,4 +23,16 @@ describe('할인 로직', () => {
     const RESERVE_DATE = new ReserveDate(number);
     expect(RESERVE_DATE.dDayDiscount()).toStrictEqual(expectResult);
   });
+
+  const DAY = [[3], [4], [5], [6], [7], [10], [11], [25], [31]];
+  test.each(DAY)('평일', (number) => {
+    const RESERVE_DATE = new ReserveDate(number);
+    expect(RESERVE_DATE.isWeekEnd()).toBeFalsy();
+  });
+
+  const END = [[1], [2], [8], [9], [15], [16], [22], [23], [29], [30]];
+  test.each(END)('주말', (number) => {
+    const RESERVE_DATE = new ReserveDate(number);
+    expect(RESERVE_DATE.isWeekEnd()).toBeTruthy();
+  });
 });
