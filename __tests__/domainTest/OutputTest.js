@@ -29,4 +29,18 @@ describe('출력 테스트', () => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
   });
+
+  test('할인 전, 증정 출력', () => {
+    const logSpy = getLogSpy();
+    const OUTPUTS = [
+      '<할인 전 총주문 금액>',
+      '142,000원',
+      '<증정 메뉴>',
+      '샴페인 1개',
+    ];
+    OutputView.printAmount(142000);
+    OUTPUTS.forEach((output) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
+    });
+  });
 });
