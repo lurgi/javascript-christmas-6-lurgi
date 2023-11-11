@@ -23,17 +23,24 @@ const DRINK = Object.freeze({
 });
 
 class ReserveMenu {
-  appetizer = {};
+  appetizer = new Map();
 
-  main = {};
+  main = new Map();
 
-  dessert = {};
+  dessert = new Map();
 
-  drink = {};
+  drink = new Map();
+
+  totalMenuNumber = 0;
 
   constructor(menuInfo) {
     const MENU_DETAIL = menuInfo.map((menuDetail) => menuDetail.split('-'));
     const MENU_NAMES = MENU_DETAIL.map(([menuName]) => menuName);
+    this.totalMenuNumber = MENU_NAMES.length;
+
+    if (MENU_NAMES.length !== new Set(MENU_NAMES).size) {
+      throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+    }
 
     MENU_DETAIL.forEach(([menuName, menuCount, other]) => {
       if (other) {
@@ -43,22 +50,19 @@ class ReserveMenu {
       }
       this.validateMenu(menuName, menuCount);
       if (APPETIZER[menuName]) {
-        this.appetizer[menuName] = Number(menuCount);
+        this.appetizer.set(menuName, Number(menuCount));
       }
       if (MAIN[menuName]) {
-        this.main[menuName] = Number(menuCount);
+        this.main.set(menuName, Number(menuCount));
       }
       if (DESSERT[menuName]) {
-        this.dessert[menuName] = Number(menuCount);
+        this.dessert.set(menuName, Number(menuCount));
       }
       if (DRINK[menuName]) {
-        this.drink[menuName] = Number(menuCount);
+        this.drink.set(menuName, Number(menuCount));
       }
     });
-
-    if (MENU_NAMES.length !== new Set(MENU_NAMES).size) {
-      throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
-    }
+    this.validOnlyDrink();
   }
 
   validateMenu(menuName, menuCount) {
@@ -74,6 +78,31 @@ class ReserveMenu {
     if (Number.isNaN(COUNT) || COUNT < 1) {
       throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     }
+  }
+
+  validOnlyDrink() {
+    if (this.totalMenuNumber === this.drink.size) {
+      throw new Error(
+        '"[ERROR] 음료만 주문할 수 없습니다. 다시 입력해 주세요."',
+      );
+    }
+  }
+
+  getAmountBeforeDiscount() {
+    let amount = 0;
+    Object.keys(this.appetizer).forEach((menuName) => {
+      amount += APPETIZER[menuName];
+    });
+    Object.keys(this.main).forEach((menuName) => {
+      amount += MAIN[menuName];
+    });
+    Object.keys(this.dessert).forEach((menuName) => {
+      amount += DESSERT[menuName];
+    });
+    Object.keys(this.drink).forEach((menuName) => {
+      amount += DRINK[menuName];
+    });
+    return amount;
   }
 
   applyMenuDiscount() {
