@@ -54,4 +54,10 @@ describe('할인 로직', () => {
     const RESERVE_MENU = new ReserveMenu(MENU);
     expect(RESERVE_MENU.applyWeekDayDiscount()).toBe(4046);
   });
+
+  test('주말 메인 할인', () => {
+    const MENU = ['티본스테이크-1', '바비큐립-2', '초코케이크-2', '제로콜라-1'];
+    const RESERVE_MENU = new ReserveMenu(MENU);
+    expect(RESERVE_MENU.applyWeekEndDiscount()).toBe(6069);
+  });
 });
