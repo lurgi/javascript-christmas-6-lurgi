@@ -41,3 +41,11 @@ describe('메뉴 20개 넘는가?', () => {
     expect(() => new ReserveMenu(menu)).toThrow('[ERROR]');
   });
 });
+
+describe('할인 로직', () => {
+  test('할인 전 금액', () => {
+    const MENU = ['티본스테이크-1', '바비큐립-1', '초코케이크-2', '제로콜라-1'];
+    const RESERVE_MENU = new ReserveMenu(MENU);
+    expect(RESERVE_MENU.getAmount()).toBe(142000);
+  });
+});
