@@ -38,6 +38,10 @@ const OutputView = {
   printBadge(Badge) {
     Console.print('<12월 이벤트 배지>');
   },
+
+  printOutput(output) {
+    Console.print(output);
+  },
 };
 
 export default OutputView;
