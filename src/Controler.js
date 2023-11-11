@@ -23,15 +23,13 @@ class Controler {
     if (!isWeekEnd) {
       weekDiscount = this.reserveMenu.applyWeekDayDiscount();
     }
-    let starDiscount = 0;
-    if (isStar) starDiscount = 1000;
 
     return {
-      amountBeforeDiscount: AMOUNT_BEFORE_DISCOUNT;
       menuInfo: this.reserveMenu.getMenuInfo(),
+      amountBeforeDiscount: AMOUNT_BEFORE_DISCOUNT,
       dDayDiscount,
       weekDayOrEnd: { isWeekEnd, weekDiscount },
-      starDiscount,
+      isStar,
     };
   }
 }
