@@ -1,3 +1,5 @@
+const WEEKEND = [1, 2, 8, 9, 15, 16, 22, 23, 29, 30];
+
 class ReserveDate {
   constructor(number) {
     this.validate(number);
@@ -23,6 +25,10 @@ class ReserveDate {
       return DISCOUNT_AMOUNT;
     }
     return false;
+  }
+
+  isWeekEnd() {
+    return WEEKEND.includes(this.reserveDate);
   }
 }
 
