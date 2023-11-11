@@ -19,7 +19,7 @@ const OutputView = {
   },
 
   printMenu(menu) {
-    Console.print('<주문 메뉴>');
+    Console.print('\n<주문 메뉴>');
     Object.keys(menu).forEach((name) => {
       const CNT = menu[name];
       Console.print(`${name} ${CNT}개`);
@@ -28,8 +28,10 @@ const OutputView = {
   },
 
   printAmount(amount) {
-    Console.print('<할인 전 총주문 금액>');
-    Console.print('<증정 메뉴>');
+    Console.print('\n<할인 전 총주문 금액>');
+    Console.print(`${Number(amount).toLocaleString()}원`);
+    Console.print('\n<증정 메뉴>');
+    Console.print(amount >= 120000 ? '샴페인 1개' : '없음');
   },
 
   printBenefit(benefit) {
