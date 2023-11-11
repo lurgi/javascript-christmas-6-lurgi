@@ -31,18 +31,21 @@ class ReserveMenu {
 
   drink = new Map();
 
-  totalMenuNumber = 0;
+  MenuTypeNumber = 0;
 
   constructor(menuInfo) {
     const MENU_DETAIL = menuInfo.map((menuDetail) => menuDetail.split('-'));
     const MENU_NAMES = MENU_DETAIL.map(([menuName]) => menuName);
-    this.totalMenuNumber = MENU_NAMES.length;
+    this.MenuTypeNumber = MENU_NAMES.length;
 
     if (MENU_NAMES.length !== new Set(MENU_NAMES).size) {
       throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     }
 
+    let totalMenuNumber = 0;
     MENU_DETAIL.forEach(([menuName, menuCount, other]) => {
+      const NUMBER_COUNT = Number(menuCount);
+      totalMenuNumber += NUMBER_COUNT;
       if (other) {
         throw new Error(
           '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.',
@@ -50,19 +53,24 @@ class ReserveMenu {
       }
       this.validateMenu(menuName, menuCount);
       if (APPETIZER[menuName]) {
-        this.appetizer.set(menuName, Number(menuCount));
+        this.appetizer.set(menuName, NUMBER_COUNT);
       }
       if (MAIN[menuName]) {
-        this.main.set(menuName, Number(menuCount));
+        this.main.set(menuName, NUMBER_COUNT);
       }
       if (DESSERT[menuName]) {
-        this.dessert.set(menuName, Number(menuCount));
+        this.dessert.set(menuName, NUMBER_COUNT);
       }
       if (DRINK[menuName]) {
-        this.drink.set(menuName, Number(menuCount));
+        this.drink.set(menuName, NUMBER_COUNT);
       }
     });
     this.validOnlyDrink();
+    if (totalMenuNumber > 20) {
+      throw new Error(
+        '[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다. 다시 입력해 주세요.',
+      );
+    }
   }
 
   validateMenu(menuName, menuCount) {
@@ -81,7 +89,7 @@ class ReserveMenu {
   }
 
   validOnlyDrink() {
-    if (this.totalMenuNumber === this.drink.size) {
+    if (this.MenuTypeNumber === this.drink.size) {
       throw new Error(
         '"[ERROR] 음료만 주문할 수 없습니다. 다시 입력해 주세요."',
       );
