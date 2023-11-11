@@ -134,6 +134,32 @@ class ReserveMenu {
     });
     return discountAmount;
   }
+
+  copyMenuInfo() {
+    const menuInfo = {};
+
+    [...this.appetizer.keys()].forEach((name) => {
+      const CNT = this.appetizer.get(name);
+      menuInfo[name] = CNT;
+    });
+    [...this.main.keys()].forEach((name) => {
+      const CNT = this.main.get(name);
+      menuInfo[name] = CNT;
+    });
+    [...this.dessert.keys()].forEach((name) => {
+      const CNT = this.dessert.get(name);
+      menuInfo[name] = CNT;
+    });
+    [...this.drink.keys()].forEach((name) => {
+      const CNT = this.drink.get(name);
+      menuInfo[name] = CNT;
+    });
+    return menuInfo;
+  }
+
+  getMenuInfo() {
+    return this.copyMenuInfo();
+  }
 }
 
 export default ReserveMenu;

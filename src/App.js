@@ -13,8 +13,8 @@ class App {
     await this.handleDate();
     await this.handleMenu();
 
-    this.#Controler.getPrintInfo();
-    OutputView.printResult();
+    const PRINT_INFO = this.#Controler.getPrintInfo();
+    OutputView.printResult(PRINT_INFO);
   }
 
   async handleDate() {
