@@ -13,7 +13,17 @@ class ReserveDate {
     }
   }
 
-  applyDateDiscount() {}
+  applyDateDiscount() {
+    this.dDayDiscount();
+  }
+
+  dDayDiscount() {
+    if (this.reserveDate <= 25) {
+      const DISCOUNT_AMOUNT = 1000 + (this.reserveDate - 1) * 100;
+      return DISCOUNT_AMOUNT;
+    }
+    return false;
+  }
 }
 
 export default ReserveDate;
