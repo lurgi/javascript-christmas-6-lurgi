@@ -12,8 +12,19 @@ class Controler {
   }
 
   #applyDiscount() {
-    this.reserveDate.applyDateDiscount();
-    this.reserveMenu.applyMenuDiscount();
+    const AMOUNT_BEFORE_DISCOUNT = this.reserveMenu.getAmount();
+    const { dDayDiscount, isWeekEnd, isStar } =
+      this.reserveDate.applyDateDiscount();
+    let weekDayDiscount = 0;
+    let weekEndDiscount = 0;
+    if (isWeekEnd) {
+      weekEndDiscount = this.reserveMenu.applyWeekEndDiscount();
+    }
+    if (!isWeekEnd) {
+      weekDayDiscount = this.reserveMenu.applyWeekDayDiscount();
+    }
+    let starDiscount = 0;
+    if (isStar) starDiscount = 1000;
   }
 }
 

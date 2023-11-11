@@ -96,25 +96,34 @@ class ReserveMenu {
     }
   }
 
-  getAmountBeforeDiscount() {
+  getAmount() {
     let amount = 0;
-    Object.keys(this.appetizer).forEach((menuName) => {
-      amount += APPETIZER[menuName];
+    [...this.appetizer.keys()].forEach((name) => {
+      const CNT = this.appetizer.get(name);
+      amount += APPETIZER[name] * CNT;
     });
-    Object.keys(this.main).forEach((menuName) => {
-      amount += MAIN[menuName];
+    [...this.main.keys()].forEach((name) => {
+      const CNT = this.main.get(name);
+      amount += MAIN[name] * CNT;
     });
-    Object.keys(this.dessert).forEach((menuName) => {
-      amount += DESSERT[menuName];
+    [...this.dessert.keys()].forEach((name) => {
+      const CNT = this.dessert.get(name);
+      amount += DESSERT[name] * CNT;
     });
-    Object.keys(this.drink).forEach((menuName) => {
-      amount += DRINK[menuName];
+    [...this.drink.keys()].forEach((name) => {
+      const CNT = this.drink.get(name);
+      amount += DRINK[name] * CNT;
     });
     return amount;
   }
 
-  applyMenuDiscount() {
-    // ...
+  applyWeekDayDiscount() {
+    let discountAmount = 0;
+    [...this.dessert.keys()].forEach((name) => {
+      const CNT = this.dessert.get(name);
+      discountAmount += CNT * 2023;
+    });
+    return discountAmount;
   }
 }
 

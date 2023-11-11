@@ -17,7 +17,7 @@ describe('할인 로직', () => {
     [1, 1000],
     [25, 3400],
     [10, 1900],
-    [31, false],
+    [31, 0],
   ];
   test.each(CASES)('디데이 할인', (number, expectResult) => {
     const RESERVE_DATE = new ReserveDate(number);
