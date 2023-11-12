@@ -8,29 +8,33 @@ class Controler {
   }
 
   getPrintInfo() {
-    const PrintInfo = this.#applyDiscount();
-    return PrintInfo;
+    const AMOUNT_BEFORE_DISCOUNT = this.reserveMenu.getAmount();
+    const D_DAY_DISCOUNT = this.reserveDate.dDayDiscount();
+    const [IS_WEEKEND, WEEK_DISCOUNT] = this.#getWeekDiscount();
+    const IS_STAR = this.reserveDate.isStarDay();
+    const MENU_INFO = this.reserveMenu.getMenuInfo();
+
+    return {
+      menuInfo: MENU_INFO,
+      amountBeforeDiscount: AMOUNT_BEFORE_DISCOUNT,
+      dDayDiscount: D_DAY_DISCOUNT,
+      weekDayOrEnd: { isWeekEnd: IS_WEEKEND, weekDiscount: WEEK_DISCOUNT },
+      isStar: IS_STAR,
+    };
   }
 
-  #applyDiscount() {
-    const AMOUNT_BEFORE_DISCOUNT = this.reserveMenu.getAmount();
-    const { dDayDiscount, isWeekEnd, isStar } =
-      this.reserveDate.applyDateDiscount();
+  #getWeekDiscount() {
+    const IS_WEEKEND = this.reserveDate.isWeekEnd();
+
     let weekDiscount = 0;
-    if (isWeekEnd) {
+    if (IS_WEEKEND) {
       weekDiscount = this.reserveMenu.applyWeekEndDiscount();
     }
-    if (!isWeekEnd) {
+    if (!IS_WEEKEND) {
       weekDiscount = this.reserveMenu.applyWeekDayDiscount();
     }
 
-    return {
-      menuInfo: this.reserveMenu.getMenuInfo(),
-      amountBeforeDiscount: AMOUNT_BEFORE_DISCOUNT,
-      dDayDiscount,
-      weekDayOrEnd: { isWeekEnd, weekDiscount },
-      isStar,
-    };
+    return [IS_WEEKEND, weekDiscount];
   }
 }
 

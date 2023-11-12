@@ -16,13 +16,6 @@ class ReserveDate {
     }
   }
 
-  applyDateDiscount() {
-    const D_DAY = this.dDayDiscount();
-    const IS_WEEKEND = this.isWeekEnd();
-    const IS_STAR = this.isStarDay();
-    return { dDayDiscount: D_DAY, isWeekEnd: IS_WEEKEND, isStar: IS_STAR };
-  }
-
   dDayDiscount() {
     if (this.reserveDate <= 25) {
       const DISCOUNT_AMOUNT = 1000 + (this.reserveDate - 1) * 100;
