@@ -50,13 +50,14 @@ const OutputView = {
     if (isStar) benefitAmount -= 1000;
 
     Console.print('\n<혜택 내역>');
-
     if (!benefitAmount) {
       Console.print('없음');
     } else {
-      Console.print(
-        `크리스마스 디데이 할인: -${convertPrintNum(dDayDiscount)}원`,
-      );
+      if (dDayDiscount) {
+        Console.print(
+          `크리스마스 디데이 할인: -${convertPrintNum(dDayDiscount)}원`,
+        );
+      }
       const WEEK_STRING = convertPrintNum(weekDiscount);
       if (isWeekEnd) {
         Console.print(`주말 할인: -${WEEK_STRING}원`);

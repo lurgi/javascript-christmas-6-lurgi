@@ -20,7 +20,7 @@ class ReserveDate {
     const D_DAY = this.dDayDiscount();
     const IS_WEEKEND = this.isWeekEnd();
     const IS_STAR = this.isStarDay();
-    return { dDay: D_DAY, isWeekEnd: IS_WEEKEND, isStar: IS_STAR };
+    return { dDayDiscount: D_DAY, isWeekEnd: IS_WEEKEND, isStar: IS_STAR };
   }
 
   dDayDiscount() {
