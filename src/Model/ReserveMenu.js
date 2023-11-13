@@ -1,164 +1,153 @@
-const APPETIZER = Object.freeze({
-  양송이수프: 6000,
-  타파스: 5500,
-  시저샐러드: 8000,
-});
-
-const MAIN = Object.freeze({
-  티본스테이크: 55000,
-  바비큐립: 54000,
-  해산물파스타: 35000,
-  크리스마스파스타: 25000,
-});
-
-const DESSERT = Object.freeze({
-  초코케이크: 15000,
-  아이스크림: 5000,
-});
-
-const DRINK = Object.freeze({
-  제로콜라: 3000,
-  레드와인: 60000,
-  샴페인: 25000,
-});
+import { APPETIZER, MAIN, DESSERT, DRINK, ERROR_MESSAGE, OTHER_CONSTANT } from './MenuConstant';
 
 class ReserveMenu {
-  appetizer = new Map();
+  #appetizer = new Map();
 
-  main = new Map();
+  #main = new Map();
 
-  dessert = new Map();
+  #dessert = new Map();
 
-  drink = new Map();
+  #drink = new Map();
 
-  MenuTypeNumber = 0;
+  #totalMenuNumber = 0;
+
+  #menuString;
+
+  #menuNames = [];
 
   constructor(menuInfo) {
-    const MENU_DETAIL = menuInfo.map((menuDetail) => menuDetail.split('-'));
-    const MENU_NAMES = MENU_DETAIL.map(([menuName]) => menuName);
-    this.MenuTypeNumber = MENU_NAMES.length;
+    this.#menuString = menuInfo.map((menuDetail) => menuDetail.split('-'));
 
-    if (MENU_NAMES.length !== new Set(MENU_NAMES).size) {
-      throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
-    }
+    this.#setMenus();
 
-    let totalMenuNumber = 0;
-    MENU_DETAIL.forEach(([menuName, menuCount, other]) => {
-      const NUMBER_COUNT = Number(menuCount);
-      totalMenuNumber += NUMBER_COUNT;
-      if (other) {
-        throw new Error(
-          '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.',
-        );
-      }
-      this.validateMenu(menuName, menuCount);
-      if (APPETIZER[menuName]) {
-        this.appetizer.set(menuName, NUMBER_COUNT);
-      }
-      if (MAIN[menuName]) {
-        this.main.set(menuName, NUMBER_COUNT);
-      }
-      if (DESSERT[menuName]) {
-        this.dessert.set(menuName, NUMBER_COUNT);
-      }
-      if (DRINK[menuName]) {
-        this.drink.set(menuName, NUMBER_COUNT);
-      }
+    this.#validDuplicate();
+    this.#validOverTwnety();
+    this.#validOnlyDrink();
+  }
+
+  #setMenus() {
+    this.#menuString.forEach(([menuName, menuCount, other]) => {
+      this.#validWrongInput(other);
+      this.#validExistMenu(menuName);
+      this.#validMenuCnt(menuCount);
+
+      this.#setMenu(menuName, menuCount);
+
+      this.#menuNames.push(menuName);
+      this.#totalMenuNumber += Number(menuCount);
     });
-    this.validOnlyDrink();
-    if (totalMenuNumber > 20) {
-      throw new Error(
-        '[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다. 다시 입력해 주세요.',
-      );
+  }
+
+  #validWrongInput(other) {
+    if (other) {
+      throw new Error(ERROR_MESSAGE.notValid);
     }
   }
 
-  validateMenu(menuName, menuCount) {
-    if (
-      !APPETIZER[menuName] &&
-      !MAIN[menuName] &&
-      !DESSERT[menuName] &&
-      !DRINK[menuName]
-    ) {
-      throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+  #validExistMenu(menuName) {
+    if (!APPETIZER[menuName] && !MAIN[menuName] && !DESSERT[menuName] && !DRINK[menuName]) {
+      throw new Error(ERROR_MESSAGE.notValid);
     }
+  }
+
+  #validMenuCnt(menuCount) {
     const COUNT = Number(menuCount);
-    if (Number.isNaN(COUNT) || COUNT < 1) {
-      throw new Error('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+    if (Number.isNaN(COUNT) || COUNT < OTHER_CONSTANT.minMenuCount) {
+      throw new Error(ERROR_MESSAGE.notValid);
     }
   }
 
-  validOnlyDrink() {
-    if (this.MenuTypeNumber === this.drink.size) {
-      throw new Error(
-        '"[ERROR] 음료만 주문할 수 없습니다. 다시 입력해 주세요."',
-      );
+  #setMenu(menuName, menuCount) {
+    const NUMBER_COUNT = Number(menuCount);
+    if (APPETIZER[menuName]) {
+      this.#appetizer.set(menuName, NUMBER_COUNT);
+    }
+    if (MAIN[menuName]) {
+      this.#main.set(menuName, NUMBER_COUNT);
+    }
+    if (DESSERT[menuName]) {
+      this.#dessert.set(menuName, NUMBER_COUNT);
+    }
+    if (DRINK[menuName]) {
+      this.#drink.set(menuName, NUMBER_COUNT);
     }
   }
 
-  getAmount() {
-    let amount = 0;
-    [...this.appetizer.keys()].forEach((name) => {
-      const CNT = this.appetizer.get(name);
-      amount += APPETIZER[name] * CNT;
-    });
-    [...this.main.keys()].forEach((name) => {
-      const CNT = this.main.get(name);
-      amount += MAIN[name] * CNT;
-    });
-    [...this.dessert.keys()].forEach((name) => {
-      const CNT = this.dessert.get(name);
-      amount += DESSERT[name] * CNT;
-    });
-    [...this.drink.keys()].forEach((name) => {
-      const CNT = this.drink.get(name);
-      amount += DRINK[name] * CNT;
-    });
-    return amount;
+  #validDuplicate() {
+    if (this.#menuNames.length !== new Set(this.#menuNames).size) {
+      throw new Error(ERROR_MESSAGE.notValid);
+    }
+  }
+
+  #validOnlyDrink() {
+    if (this.#menuNames.length === this.#drink.size) {
+      throw new Error(ERROR_MESSAGE.notOnlyDrink);
+    }
+  }
+
+  #validOverTwnety() {
+    if (this.#totalMenuNumber > OTHER_CONSTANT.maxMenuCount) {
+      throw new Error(ERROR_MESSAGE.notOver20);
+    }
   }
 
   applyWeekDayDiscount() {
     let discountAmount = 0;
-    [...this.dessert.keys()].forEach((name) => {
-      const CNT = this.dessert.get(name);
-      discountAmount += CNT * 2023;
+
+    [...this.#dessert.keys()].forEach((name) => {
+      const CNT = this.#dessert.get(name);
+      discountAmount += CNT * OTHER_CONSTANT.weekDiscountRange;
     });
+
     return discountAmount;
   }
 
   applyWeekEndDiscount() {
     let discountAmount = 0;
-    [...this.main.keys()].forEach((name) => {
-      const CNT = this.main.get(name);
-      discountAmount += CNT * 2023;
+
+    [...this.#main.keys()].forEach((name) => {
+      const CNT = this.#main.get(name);
+      discountAmount += CNT * OTHER_CONSTANT.weekDiscountRange;
     });
+
     return discountAmount;
   }
 
-  copyMenuInfo() {
-    const menuInfo = {};
+  getAmount() {
+    let amount = 0;
 
-    [...this.appetizer.keys()].forEach((name) => {
-      const CNT = this.appetizer.get(name);
-      menuInfo[name] = CNT;
+    amount += this.#loofMenuAmount(this.#appetizer, APPETIZER);
+    amount += this.#loofMenuAmount(this.#main, MAIN);
+    amount += this.#loofMenuAmount(this.#dessert, DESSERT);
+    amount += this.#loofMenuAmount(this.#drink, DRINK);
+
+    return amount;
+  }
+
+  #loofMenuAmount(hashMap, menuConst) {
+    let amount = 0;
+    [...hashMap.keys()].forEach((name) => {
+      amount += menuConst[name] * hashMap.get(name);
     });
-    [...this.main.keys()].forEach((name) => {
-      const CNT = this.main.get(name);
-      menuInfo[name] = CNT;
-    });
-    [...this.dessert.keys()].forEach((name) => {
-      const CNT = this.dessert.get(name);
-      menuInfo[name] = CNT;
-    });
-    [...this.drink.keys()].forEach((name) => {
-      const CNT = this.drink.get(name);
-      menuInfo[name] = CNT;
-    });
-    return menuInfo;
+    return amount;
   }
 
   getMenuInfo() {
-    return this.copyMenuInfo();
+    this.menuInfo = {};
+
+    this.#loofMenuInfo(this.#appetizer);
+    this.#loofMenuInfo(this.#main);
+    this.#loofMenuInfo(this.#dessert);
+    this.#loofMenuInfo(this.#drink);
+
+    return this.menuInfo;
+  }
+
+  #loofMenuInfo(hashMap) {
+    [...hashMap.keys()].forEach((name) => {
+      const CNT = hashMap.get(name);
+      this.menuInfo[name] = CNT;
+    });
   }
 }
 
