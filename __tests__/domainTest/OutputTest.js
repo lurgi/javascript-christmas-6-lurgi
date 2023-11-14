@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { MissionUtils } from '@woowacourse/mission-utils';
 import OutputView from '../../src/OutputView';
 
@@ -32,12 +33,7 @@ describe('출력 테스트', () => {
 
   test('할인 전, 증정 출력', () => {
     const logSpy = getLogSpy();
-    const OUTPUTS = [
-      '<할인 전 총주문 금액>',
-      '142,000원',
-      '<증정 메뉴>',
-      '샴페인 1개',
-    ];
+    const OUTPUTS = ['<할인 전 총주문 금액>', '142,000원', '<증정 메뉴>', '샴페인 1개'];
     OutputView.printAmount(142000);
     OUTPUTS.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
@@ -46,7 +42,7 @@ describe('출력 테스트', () => {
 
   test('혜택 출력', () => {
     const logSpy = getLogSpy();
-    const MENU_IFNO = {
+    const MENU_INFO = {
       menuInfo: { 티본스테이크: 1, 바비큐립: 1, 초코케이크: 2, 제로콜라: 1 },
       amountBeforeDiscount: 142000,
       dDayDiscount: 1200,
@@ -66,7 +62,8 @@ describe('출력 테스트', () => {
       '<12월 이벤트 배지>',
       '산타',
     ];
-    OutputView.printBenefit(MENU_IFNO);
+    OutputView.setPrintInfo({ MENU_INFO, DATE_INFO: 3 });
+    OutputView.printBenefit();
     OUTPUTS.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
     });
