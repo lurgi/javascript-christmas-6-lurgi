@@ -13,15 +13,19 @@ const OutputView = {
   },
 
   setPrintInfo({
-    MENU_INFO: { menuInfo, amountBeforeDiscount, dDayDiscount, weekDayOrEnd, isStar },
-    DATE_INFO,
+    menuInfo,
+    amountBeforeDiscount,
+    dDayDiscount,
+    weekDayOrEnd,
+    isStar,
+    reserveDate,
   }) {
     this.menuInfo = menuInfo;
     this.amountBeforeDiscount = amountBeforeDiscount;
     this.dDayDiscount = dDayDiscount;
     this.weekDayOrEnd = weekDayOrEnd;
     this.isStar = isStar;
-    this.reserveDate = DATE_INFO;
+    this.reserveDate = reserveDate;
   },
 
   printMenu(menu) {

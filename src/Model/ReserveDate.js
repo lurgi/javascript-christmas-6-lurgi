@@ -10,34 +10,40 @@ const D_DAY_START_MONEY = 1000;
 const D_DAY_INC_MONEY = 100;
 
 class ReserveDate {
+  #reserveDate;
+
   constructor(number) {
-    this.reserveDate = number;
+    this.#reserveDate = number;
     this.#validate();
   }
 
   #validate() {
-    if (this.reserveDate < FIRST_DAY || this.reserveDate > LAST_DAY) {
+    if (this.#reserveDate < FIRST_DAY || this.#reserveDate > LAST_DAY) {
       throw new Error(ERROR_MESSAGE);
     }
-    if (Number.isNaN(this.reserveDate)) {
+    if (Number.isNaN(this.#reserveDate)) {
       throw new Error(ERROR_MESSAGE);
     }
   }
 
   dDayDiscount() {
-    if (this.reserveDate <= X_MAS) {
-      return D_DAY_START_MONEY + (this.reserveDate - 1) * D_DAY_INC_MONEY;
+    if (this.#reserveDate <= X_MAS) {
+      return D_DAY_START_MONEY + (this.#reserveDate - 1) * D_DAY_INC_MONEY;
     }
 
     return 0;
   }
 
   isWeekEnd() {
-    return WEEKEND.includes(this.reserveDate);
+    return WEEKEND.includes(this.#reserveDate);
   }
 
   isStarDay() {
-    return STARDAY.includes(this.reserveDate);
+    return STARDAY.includes(this.#reserveDate);
+  }
+
+  getReserveDate() {
+    return this.#reserveDate;
   }
 }
 

@@ -52,14 +52,12 @@ describe('출력 테스트', () => {
   const BENEFIT_CASE = [
     [
       {
-        MENU_INFO: {
-          menuInfo: { 티본스테이크: 1, 바비큐립: 1, 초코케이크: 2, 제로콜라: 1 },
-          amountBeforeDiscount: 142000,
-          dDayDiscount: 1200,
-          weekDayOrEnd: { isWeekEnd: false, weekDiscount: 4046 },
-          isStar: true,
-        },
-        DATE_INFO: 3,
+        menuInfo: { 티본스테이크: 1, 바비큐립: 1, 초코케이크: 2, 제로콜라: 1 },
+        amountBeforeDiscount: 142000,
+        dDayDiscount: 1200,
+        weekDayOrEnd: { isWeekEnd: false, weekDiscount: 4046 },
+        isStar: true,
+        reserveDate: 3,
       },
       [
         '\n<혜택 내역>',
@@ -77,14 +75,12 @@ describe('출력 테스트', () => {
     ],
     [
       {
-        MENU_INFO: {
-          menuInfo: { 타파스: 1, 제로콜라: 1 },
-          amountBeforeDiscount: 8500,
-          dDayDiscount: 0,
-          weekDayOrEnd: { isWeekEnd: false, weekDiscount: 0 },
-          isStar: false,
-        },
-        DATE_INFO: 3,
+        menuInfo: { 타파스: 1, 제로콜라: 1 },
+        amountBeforeDiscount: 8500,
+        dDayDiscount: 0,
+        weekDayOrEnd: { isWeekEnd: false, weekDiscount: 0 },
+        isStar: false,
+        reserveDate: 3,
       },
       [
         '\n<혜택 내역>',

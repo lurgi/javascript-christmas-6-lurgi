@@ -14,8 +14,7 @@ class App {
     await this.handleMenu();
 
     const MENU_INFO = this.#Controler.getPrintInfo();
-    const DATE_INFO = this.#Controler.reserveDate.reserveDate;
-    OutputView.printResult({ MENU_INFO, DATE_INFO });
+    OutputView.printResult(MENU_INFO);
   }
 
   async handleDate() {
