@@ -1,5 +1,5 @@
-const WEEKEND = [1, 2, 8, 9, 15, 16, 22, 23, 29, 30];
-const STARDAY = [3, 10, 17, 24, 25, 31];
+const WEEKEND = Object.freeze([1, 2, 8, 9, 15, 16, 22, 23, 29, 30]);
+const STARDAY = Object.freeze([3, 10, 17, 24, 25, 31]);
 
 const ERROR_MESSAGE = '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.';
 
@@ -26,9 +26,9 @@ class ReserveDate {
 
   dDayDiscount() {
     if (this.reserveDate <= X_MAS) {
-      const DISCOUNT_AMOUNT = D_DAY_START_MONEY + (this.reserveDate - 1) * D_DAY_INC_MONEY;
-      return DISCOUNT_AMOUNT;
+      return D_DAY_START_MONEY + (this.reserveDate - 1) * D_DAY_INC_MONEY;
     }
+
     return 0;
   }
 
