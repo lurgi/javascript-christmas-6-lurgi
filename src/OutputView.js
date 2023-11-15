@@ -83,9 +83,11 @@ const OutputView = Object.freeze({
 
   printBenefitDetailWeek() {
     const { isWeekEnd, weekDiscount } = OutputInfo.weekDayOrEnd;
-    Console.print(
-      `${OUTPUT_LIST.weekDayOrEnd(isWeekEnd)} ${OUTPUT_RESULT.negativeAmount(weekDiscount)}`,
-    );
+    if (weekDiscount) {
+      Console.print(
+        `${OUTPUT_LIST.weekDayOrEnd(isWeekEnd)} ${OUTPUT_RESULT.negativeAmount(weekDiscount)}`,
+      );
+    }
   },
 
   printBenefitSpecial() {
