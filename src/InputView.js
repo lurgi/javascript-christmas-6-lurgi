@@ -7,7 +7,7 @@ const DIVIDE_SYMBOL = ',';
 
 const ERROR_MESSAGE = '[ERROR] 입력하지 않으셨습니다.';
 
-const InputView = {
+const InputView = Object.freeze({
   async readDate() {
     const input = await Console.readLineAsync(DATE_QUESTION);
     this.validInput(input);
@@ -27,6 +27,6 @@ const InputView = {
       throw new Error(ERROR_MESSAGE);
     }
   },
-};
+});
 
 export default InputView;

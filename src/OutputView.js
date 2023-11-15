@@ -1,14 +1,16 @@
 import { Console } from '@woowacourse/mission-utils';
 import { OUTPUT_MESSAGES, OUTPUT_LIST, OUTPUT_PRICE, OUTPUT_RESULT } from './OutputConstant';
 
-const OutputView = {
+const OutputInfo = {};
+
+const OutputView = Object.freeze({
   printResult(PrintInfo) {
     this.setPrintInfo(PrintInfo);
 
-    Console.print(OUTPUT_MESSAGES.previewEvent(this.reserveDate));
+    Console.print(OUTPUT_MESSAGES.previewEvent(OutputInfo.reserveDate));
 
-    this.printMenu(this.menuInfo);
-    this.printAmount(this.amountBeforeDiscount);
+    this.printMenu(OutputInfo.menuInfo);
+    this.printAmount(OutputInfo.amountBeforeDiscount);
     this.printBenefit();
   },
 
@@ -20,12 +22,12 @@ const OutputView = {
     isStar,
     reserveDate,
   }) {
-    this.menuInfo = menuInfo;
-    this.amountBeforeDiscount = amountBeforeDiscount;
-    this.dDayDiscount = dDayDiscount;
-    this.weekDayOrEnd = weekDayOrEnd;
-    this.isStar = isStar;
-    this.reserveDate = reserveDate;
+    OutputInfo.menuInfo = menuInfo;
+    OutputInfo.amountBeforeDiscount = amountBeforeDiscount;
+    OutputInfo.dDayDiscount = dDayDiscount;
+    OutputInfo.weekDayOrEnd = weekDayOrEnd;
+    OutputInfo.isStar = isStar;
+    OutputInfo.reserveDate = reserveDate;
   },
 
   printMenu(menu) {
@@ -52,16 +54,16 @@ const OutputView = {
 
   setBenefitAmount() {
     let benefitAmount = 0;
-    benefitAmount -= this.dDayDiscount;
-    benefitAmount -= this.weekDayOrEnd.weekDiscount;
-    if (this.isStar) benefitAmount -= OUTPUT_PRICE.special;
-    this.benefitAmount = benefitAmount;
+    benefitAmount -= OutputInfo.dDayDiscount;
+    benefitAmount -= OutputInfo.weekDayOrEnd.weekDiscount;
+    if (OutputInfo.isStar) benefitAmount -= OUTPUT_PRICE.special;
+    OutputInfo.benefitAmount = benefitAmount;
   },
 
   printBenefitDetail() {
     Console.print(OUTPUT_MESSAGES.benefit);
 
-    if (!this.benefitAmount) {
+    if (!OutputInfo.benefitAmount) {
       Console.print(OUTPUT_RESULT.nothing);
 
       return;
@@ -74,26 +76,26 @@ const OutputView = {
   },
 
   printBenefitDDay() {
-    if (this.dDayDiscount) {
-      Console.print(`${OUTPUT_LIST.dDay} ${OUTPUT_RESULT.negativeAmount(this.dDayDiscount)}`);
+    if (OutputInfo.dDayDiscount) {
+      Console.print(`${OUTPUT_LIST.dDay} ${OUTPUT_RESULT.negativeAmount(OutputInfo.dDayDiscount)}`);
     }
   },
 
   printBenefitDetailWeek() {
-    const { isWeekEnd, weekDiscount } = this.weekDayOrEnd;
+    const { isWeekEnd, weekDiscount } = OutputInfo.weekDayOrEnd;
     Console.print(
       `${OUTPUT_LIST.weekDayOrEnd(isWeekEnd)} ${OUTPUT_RESULT.negativeAmount(weekDiscount)}`,
     );
   },
 
   printBenefitSpecial() {
-    if (this.isStar) {
+    if (OutputInfo.isStar) {
       Console.print(`${OUTPUT_LIST.special} ${OUTPUT_RESULT.negativeAmount(OUTPUT_PRICE.special)}`);
     }
   },
 
   printBenefitPresent() {
-    if (this.amountBeforeDiscount >= OUTPUT_PRICE.presentBaseAmount) {
+    if (OutputInfo.amountBeforeDiscount >= OUTPUT_PRICE.presentBaseAmount) {
       Console.print(`${OUTPUT_LIST.present} ${OUTPUT_RESULT.negativeAmount(OUTPUT_PRICE.present)}`);
     }
   },
@@ -104,20 +106,20 @@ const OutputView = {
     Console.print(OUTPUT_RESULT.amount(TOTAL_BENEFIT_AMOUNT));
 
     Console.print(OUTPUT_MESSAGES.payAmount);
-    const PAY_AMOUNT = this.amountBeforeDiscount + this.benefitAmount;
+    const PAY_AMOUNT = OutputInfo.amountBeforeDiscount + OutputInfo.benefitAmount;
     Console.print(OUTPUT_RESULT.amount(PAY_AMOUNT));
 
     this.printBadge(TOTAL_BENEFIT_AMOUNT);
   },
 
   getTotalBenefitAmount() {
-    const IS_PRESENT = this.amountBeforeDiscount >= OUTPUT_PRICE.presentBaseAmount;
+    const IS_PRESENT = OutputInfo.amountBeforeDiscount >= OUTPUT_PRICE.presentBaseAmount;
 
     if (IS_PRESENT) {
-      return this.benefitAmount - OUTPUT_PRICE.present;
+      return OutputInfo.benefitAmount - OUTPUT_PRICE.present;
     }
 
-    return this.benefitAmount;
+    return OutputInfo.benefitAmount;
   },
 
   printBadge(BENEFITAMOUNT) {
@@ -137,6 +139,6 @@ const OutputView = {
   printOutput(output) {
     Console.print(output);
   },
-};
+});
 
 export default OutputView;
