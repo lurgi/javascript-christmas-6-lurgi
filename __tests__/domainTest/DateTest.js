@@ -12,6 +12,7 @@ describe('날짜 모델 유효성', () => {
   });
 });
 
+// eslint-disable-next-line
 describe('할인 로직', () => {
   const CASES = [
     [1, 1000],
