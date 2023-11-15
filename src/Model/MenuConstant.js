@@ -32,4 +32,5 @@ export const OTHER_CONSTANT = Object.freeze({
   maxMenuCount: 20,
   minMenuCount: 1,
   weekDiscountRange: 2023,
+  divideSymbol: '-',
 });

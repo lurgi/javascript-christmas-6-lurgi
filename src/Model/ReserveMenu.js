@@ -9,32 +9,23 @@ class ReserveMenu {
 
   #drink = new Map();
 
-  #totalMenuNumber = 0;
-
-  #menuString;
-
-  #menuNames = [];
-
   constructor(menuInfo) {
-    this.#menuString = menuInfo.map((menuDetail) => menuDetail.split('-'));
+    const MENU_STRING = menuInfo.map((menuDetail) => menuDetail.split(OTHER_CONSTANT.divideSymbol));
 
-    this.#setMenus();
+    this.#setMenus(MENU_STRING);
 
-    this.#validDuplicate();
     this.#validOverTwnety();
     this.#validOnlyDrink();
   }
 
-  #setMenus() {
-    this.#menuString.forEach(([menuName, menuCount, other]) => {
+  #setMenus(menuString) {
+    menuString.forEach(([menuName, menuCount, other]) => {
       this.#validWrongInput(other);
       this.#validExistMenu(menuName);
       this.#validMenuCnt(menuCount);
+      this.#validDuplicate(menuName);
 
       this.#setMenu(menuName, menuCount);
-
-      this.#menuNames.push(menuName);
-      this.#totalMenuNumber += Number(menuCount);
     });
   }
 
@@ -51,44 +42,64 @@ class ReserveMenu {
   }
 
   #validMenuCnt(menuCount) {
-    const COUNT = Number(menuCount);
-    if (Number.isNaN(COUNT) || COUNT < OTHER_CONSTANT.minMenuCount) {
+    if (Number.isNaN(Number(menuCount)) || Number(menuCount) < OTHER_CONSTANT.minMenuCount) {
+      throw new Error(ERROR_MESSAGE.notValid);
+    }
+  }
+
+  #validDuplicate(menuName) {
+    if (this.#appetizer.get(menuName)) {
+      throw new Error(ERROR_MESSAGE.notValid);
+    }
+    if (this.#main.get(menuName)) {
+      throw new Error(ERROR_MESSAGE.notValid);
+    }
+    if (this.#dessert.get(menuName)) {
+      throw new Error(ERROR_MESSAGE.notValid);
+    }
+    if (this.#drink.get(menuName)) {
       throw new Error(ERROR_MESSAGE.notValid);
     }
   }
 
   #setMenu(menuName, menuCount) {
-    const NUMBER_COUNT = Number(menuCount);
     if (APPETIZER[menuName]) {
-      this.#appetizer.set(menuName, NUMBER_COUNT);
+      this.#appetizer.set(menuName, Number(menuCount));
     }
     if (MAIN[menuName]) {
-      this.#main.set(menuName, NUMBER_COUNT);
+      this.#main.set(menuName, Number(menuCount));
     }
     if (DESSERT[menuName]) {
-      this.#dessert.set(menuName, NUMBER_COUNT);
+      this.#dessert.set(menuName, Number(menuCount));
     }
     if (DRINK[menuName]) {
-      this.#drink.set(menuName, NUMBER_COUNT);
-    }
-  }
-
-  #validDuplicate() {
-    if (this.#menuNames.length !== new Set(this.#menuNames).size) {
-      throw new Error(ERROR_MESSAGE.notValid);
+      this.#drink.set(menuName, Number(menuCount));
     }
   }
 
   #validOnlyDrink() {
-    if (this.#menuNames.length === this.#drink.size) {
+    if (this.#getSortOfMenu() === this.#drink.size) {
       throw new Error(ERROR_MESSAGE.notOnlyDrink);
     }
   }
 
+  #getSortOfMenu() {
+    return this.#appetizer.size + this.#main.size + this.#dessert.size + this.#drink.size;
+  }
+
   #validOverTwnety() {
-    if (this.#totalMenuNumber > OTHER_CONSTANT.maxMenuCount) {
+    if (this.#getTotalMenuNumber() > OTHER_CONSTANT.maxMenuCount) {
       throw new Error(ERROR_MESSAGE.notOver20);
     }
+  }
+
+  #getTotalMenuNumber() {
+    return [
+      ...this.#appetizer.values(),
+      ...this.#main.values(),
+      ...this.#dessert.values(),
+      ...this.#drink.values(),
+    ].reduce((acc, cur) => acc + cur, 0);
   }
 
   applyWeekDayDiscount() {
@@ -126,9 +137,11 @@ class ReserveMenu {
 
   #loofMenuAmount(hashMap, menuConst) {
     let amount = 0;
+
     [...hashMap.keys()].forEach((name) => {
       amount += menuConst[name] * hashMap.get(name);
     });
+
     return amount;
   }
 
