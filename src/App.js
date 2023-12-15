@@ -18,7 +18,7 @@ class App {
     this.handlePrintPresent();
     this.handleBenefit();
     this.handleTotalBenefitAmount();
-    // TODO 할인 후 예상 결제 금액 출력
+    this.handleAmountAfterDiscount();
     // TODO 뱃지 출력
   }
 
@@ -91,6 +91,11 @@ class App {
   handleTotalBenefitAmount() {
     const TOTAL_BENEFIT_AMOUNT = this.#eventControler.getTotalBenefitAmount();
     OutputView.printTotalBenefitAmount(TOTAL_BENEFIT_AMOUNT);
+  }
+
+  handleAmountAfterDiscount() {
+    const AMOUNT_AFTER_DISCOUNT = this.#eventControler.getAmountAfterDiscount();
+    OutputView.printAmountAfterDiscount(AMOUNT_AFTER_DISCOUNT);
   }
 }
 

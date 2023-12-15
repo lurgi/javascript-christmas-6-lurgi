@@ -86,6 +86,11 @@ const OutputView = {
     this.print(OUTPUTS.amountString(amount));
   },
 
+  printAmountAfterDiscount(amount) {
+    this.print(OUTPUT_TITLE.amountAfterDiscountTitle);
+    this.print(OUTPUTS.amountString(amount));
+  },
+
   print(string) {
     Console.print(string);
   },

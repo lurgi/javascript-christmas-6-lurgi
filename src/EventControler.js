@@ -78,6 +78,20 @@ class EventControler {
 
     return totalAmount;
   }
+
+  getAmountAfterDiscount() {
+    let amount = this.getAmountBeforeDiscount();
+
+    const D_DAY_DISCOUNT = this.getAmountDDayDiscount();
+    if (D_DAY_DISCOUNT) amount -= D_DAY_DISCOUNT;
+
+    const WEEK_DISCOUNT = this.getWeekDiscount();
+    if (WEEK_DISCOUNT) amount -= WEEK_DISCOUNT;
+
+    if (this.getIsSpecial()) amount -= 1_000;
+
+    return amount;
+  }
 }
 
 export default EventControler;
