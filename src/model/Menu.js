@@ -123,22 +123,22 @@ class Menu {
   //     }
   //   }
 
-  //   #getSumMenuPrice() {
-  //     const APPITIZER_PRICE = this.#getEachMenuPrice(this.#appitizer, APPITIZER);
-  //     const MAIN_PRICE = this.#getEachMenuPrice(this.#main, MAIN);
-  //     const DESSERT_PRICE = this.#getEachMenuPrice(this.#dessert, DESSERT);
-  //     const DRINK_PRICE = this.#getEachMenuPrice(this.#drink, DRINK);
-  //     return APPITIZER_PRICE + MAIN_PRICE + DESSERT_PRICE + DRINK_PRICE;
-  //   }
+  getSumMenuPrice() {
+    const APPITIZER_PRICE = this.#getEachMenuPrice(this.#appitizer, APPITIZER);
+    const MAIN_PRICE = this.#getEachMenuPrice(this.#main, MAIN);
+    const DESSERT_PRICE = this.#getEachMenuPrice(this.#dessert, DESSERT);
+    const DRINK_PRICE = this.#getEachMenuPrice(this.#drink, DRINK);
+    return APPITIZER_PRICE + MAIN_PRICE + DESSERT_PRICE + DRINK_PRICE;
+  }
 
-  //   #getEachMenuPrice(hashMap, constant) {
-  //     const KEYS = hashMap.keys();
-  //     let sum = 0;
-  //     KEYS.forEach((menu) => {
-  //       sum += constant[menu] * this.#appitizer[menu];
-  //     });
-  //     return sum;
-  //   }
+  #getEachMenuPrice(hashMap, constant) {
+    const KEYS = Array.from(hashMap.keys());
+    return KEYS.reduce((acc, menu) => {
+      let sum = acc;
+      sum += constant[menu] * hashMap.get(menu);
+      return sum;
+    }, 0);
+  }
 }
 
 export default Menu;

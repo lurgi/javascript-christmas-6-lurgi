@@ -21,6 +21,10 @@ class EventControler {
   getMenu() {
     return this.#menuClass.getMenu();
   }
+
+  getAmountBeforeDiscount() {
+    return this.#menuClass.getSumMenuPrice();
+  }
 }
 
 export default EventControler;

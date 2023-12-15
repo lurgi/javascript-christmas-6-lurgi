@@ -14,6 +14,8 @@ class App {
     await this.handleMenu();
     this.handlePrintDate();
     this.handlePrintMenu();
+    this.handlePrintAmountBeforeDiscount();
+    // TODO 증정 메뉴 출력 (샴페인 or 없음))
     // TODO 혜택 내역 출력
     // TODO 총혜택 금액 출력
     // TODO 할인 후 예상 결제 금액 출력
@@ -25,7 +27,7 @@ class App {
       const INPUT = await InputView.readDate();
       this.#eventControler.setDate(INPUT);
     } catch (error) {
-      OutputView.printString(error.message);
+      OutputView.print(error.message);
       await this.handleDate();
     }
   }
@@ -35,7 +37,7 @@ class App {
       const INPUT = await InputView.readMenu();
       this.#eventControler.setMenu(INPUT);
     } catch (error) {
-      OutputView.printString(error.message);
+      OutputView.print(error.message);
       await this.handleMenu();
     }
   }
@@ -48,6 +50,11 @@ class App {
   handlePrintMenu() {
     const MENU = this.#eventControler.getMenu();
     OutputView.printMenu(MENU);
+  }
+
+  handlePrintAmountBeforeDiscount() {
+    const AMOUNT_PRICE = this.#eventControler.getAmountBeforeDiscount();
+    OutputView.printAMountBeforeDiscount(AMOUNT_PRICE);
   }
 }
 
