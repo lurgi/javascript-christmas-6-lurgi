@@ -58,16 +58,22 @@ class App {
   }
 
   handlePrintPresent() {
-    const PRESSENT_BOL = this.#eventControler.isPresent();
+    const PRESSENT_BOL = this.#eventControler.getIsPresent();
     OutputView.printPresent(PRESSENT_BOL);
   }
 
   handleBenefit() {
     OutputView.printBenefitStart();
 
+    // TODO 만원 넘는지 확인
+
     const D_DAY_DISCOUNT = this.#eventControler.getAmountDDayDiscount();
     OutputView.printDDayBenefit(D_DAY_DISCOUNT);
-    // TODO 평일 주말 할인 출력
+
+    const IS_WEEKEND = this.#eventControler.getIsWeekend();
+    const WEEK_DISCOUNT = this.#eventControler.getWeekDiscount();
+    OutputView.printWeekBenefit(IS_WEEKEND, WEEK_DISCOUNT);
+
     // TODO 특별 할인
     // TODO 증정 이벤트
   }

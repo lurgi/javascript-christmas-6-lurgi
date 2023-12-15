@@ -139,6 +139,21 @@ class Menu {
       return sum;
     }, 0);
   }
+
+  getWeekDiscount(isWeekend) {
+    if (isWeekend) {
+      return (
+        Array.from(this.#main.values()).reduce((acc, num) => acc + num, 0) *
+        2023
+      );
+    }
+    if (!isWeekend) {
+      return (
+        Array.from(this.#dessert.values()).reduce((acc, num) => acc + num, 0) *
+        2023
+      );
+    }
+  }
 }
 
 export default Menu;

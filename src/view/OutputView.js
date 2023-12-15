@@ -19,6 +19,8 @@ const OUTPUTS = {
   presentString: (bol) => (bol ? '샴페인 1개' : '없음'),
   dDayAmount: (amount) =>
     `크리스마스 디데이 할인: -${amount.toLocaleString()}원`,
+  weekDiscount: (isWeekend, amount) =>
+    `${isWeekend ? '주말' : '평일'} 할인: -${amount.toLocaleString()}원`,
 };
 
 const OutputView = {
@@ -53,6 +55,10 @@ const OutputView = {
 
   printDDayBenefit(amount) {
     if (amount) this.print(OUTPUTS.dDayAmount(amount));
+  },
+
+  printWeekBenefit(isWeekend, amount) {
+    this.print(OUTPUTS.weekDiscount(isWeekend, amount));
   },
 
   print(string) {
