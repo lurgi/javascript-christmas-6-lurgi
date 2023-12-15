@@ -24,6 +24,7 @@ const OUTPUTS = {
     `${isWeekend ? '주말' : '평일'} 할인: -${amount.toLocaleString()}원`,
   sepcial: '특별 할인: -1,000원',
   presentAmount: `증정 이벤트: -25,000원`,
+  amountString: (amount) => `${amount.toLocaleString()}원`,
 };
 
 const OutputView = {
@@ -78,6 +79,11 @@ const OutputView = {
     if (isPresent) {
       this.print(OUTPUTS.presentAmount);
     }
+  },
+
+  printTotalBenefitAmount(amount) {
+    this.print(OUTPUT_TITLE.totalBenefitAmountTitle);
+    this.print(OUTPUTS.amountString(amount));
   },
 
   print(string) {

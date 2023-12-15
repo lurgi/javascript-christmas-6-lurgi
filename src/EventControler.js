@@ -63,6 +63,21 @@ class EventControler {
     const DATE = this.getDate();
     return SPECIAL_DAY.includes(DATE);
   }
+
+  getTotalBenefitAmount() {
+    let totalAmount = 0;
+
+    const D_DAY_DISCOUNT = this.getAmountDDayDiscount();
+    if (D_DAY_DISCOUNT) totalAmount -= D_DAY_DISCOUNT;
+
+    const WEEK_DISCOUNT = this.getWeekDiscount();
+    if (WEEK_DISCOUNT) totalAmount -= WEEK_DISCOUNT;
+
+    if (this.getIsSpecial()) totalAmount -= 1_000;
+    if (this.getIsPresent()) totalAmount -= 25_000;
+
+    return totalAmount;
+  }
 }
 
 export default EventControler;
