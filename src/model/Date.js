@@ -14,6 +14,10 @@ class Date {
       throw new Error('[ERROR] 1~31 숫자만 입력');
     }
   }
+
+  getDate() {
+    return this.#date;
+  }
 }
 
 export default Date;

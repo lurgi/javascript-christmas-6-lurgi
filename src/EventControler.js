@@ -10,6 +10,10 @@ class EventControler {
     this.#dateClass = new Date(date);
   }
 
+  getDate() {
+    return this.#dateClass.getDate();
+  }
+
   setMenu(menu) {
     this.#menuClass = new Menu(menu);
   }
