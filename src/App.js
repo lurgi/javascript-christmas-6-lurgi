@@ -11,7 +11,7 @@ class App {
     this.#eventControler = new EventControler();
 
     await this.handleDate();
-    // await this.handleMenu();
+    await this.handleMenu();
 
     // TODO 미리보기 문구 출력
     // TODO 주문 메뉴 출력
@@ -28,6 +28,16 @@ class App {
     } catch (error) {
       OutputView.printString(error.message);
       await this.handleDate();
+    }
+  }
+
+  async handleMenu() {
+    try {
+      const INPUT = await InputView.readMenu();
+      this.#eventControler.setMenu(INPUT);
+    } catch (error) {
+      OutputView.printString(error.message);
+      await this.handleMenu();
     }
   }
 }
