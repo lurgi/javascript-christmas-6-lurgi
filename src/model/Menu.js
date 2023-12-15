@@ -23,25 +23,32 @@ const DRINK = {
 };
 
 class Menu {
-  #menu;
+  #appitizer = new Map();
+
+  #main = new Map();
+
+  #dessert = new Map();
+
+  #drink = new Map();
 
   constructor(menu) {
-    const MENU = menu.map((value) => {
+    menu.forEach((value) => {
       const [NAME, CNT] = value.split('-');
       this.#validMenuDetail(NAME, CNT);
+      this.#validDuplication(NAME);
+      this.#setMenu(NAME, CNT);
     });
-    // this.#validMenuWhole(MENU);
-    this.#menu = MENU;
   }
-
-  //   #validMenuWhole(menu) {
-  //     // TODO 중복 확인
-  //     this.#validDuplication(menu);
-  //   }
 
   #validMenuDetail(NAME, CNT) {
     if (!this.#isValidMenu(NAME)) {
       throw new Error('[ERROR] 메뉴 없음');
+    }
+    if (Number.isNaN(Number(CNT))) {
+      throw new Error('[ERROR] 메뉴 수량 숫자 아님');
+    }
+    if (Number(CNT) < 1) {
+      throw new Error('[ERROR] 메뉴 수량 1 미만');
     }
   }
 
@@ -51,10 +58,22 @@ class Menu {
     );
   }
 
-  #validDuplication(menu) {
-    if (menu.length !== new Set(menu).size) {
-      throw new Error('[ERROR 메뉴 중복');
+  #validDuplication(name) {
+    if (
+      this.#appitizer.get(name) ||
+      this.#main.get(name) ||
+      this.#dessert.get(name) ||
+      this.#drink.get(name)
+    ) {
+      throw new Error('[ERROR] 메뉴 중복');
     }
+  }
+
+  #setMenu(name, cnt) {
+    if (APPITIZER[name]) this.#appitizer.set(name, cnt);
+    if (MAIN[name]) this.#main.set(name, cnt);
+    if (DESSERT[name]) this.#dessert.set(name, cnt);
+    if (DRINK[name]) this.#drink.set(name, cnt);
   }
 }
 
