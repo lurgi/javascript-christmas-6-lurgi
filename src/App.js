@@ -16,7 +16,7 @@ class App {
     this.handlePrintMenu();
     this.handlePrintAmountBeforeDiscount();
     this.handlePrintPresent();
-    // TODO 혜택 내역 출력
+    this.handleBenefit();
     // TODO 총혜택 금액 출력
     // TODO 할인 후 예상 결제 금액 출력
     // TODO 뱃지 출력
@@ -60,6 +60,16 @@ class App {
   handlePrintPresent() {
     const PRESSENT_BOL = this.#eventControler.isPresent();
     OutputView.printPresent(PRESSENT_BOL);
+  }
+
+  handleBenefit() {
+    OutputView.printBenefitStart();
+
+    const D_DAY_DISCOUNT = this.#eventControler.getAmountDDayDiscount();
+    OutputView.printDDayBenefit(D_DAY_DISCOUNT);
+    // TODO 평일 주말 할인 출력
+    // TODO 특별 할인
+    // TODO 증정 이벤트
   }
 }
 

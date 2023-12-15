@@ -17,6 +17,8 @@ const OUTPUTS = {
   menuString: (name, cnt) => `${name} ${cnt}개`,
   amountBeforeDiscountString: (amount) => `${amount.toLocaleString()}원`,
   presentString: (bol) => (bol ? '샴페인 1개' : '없음'),
+  dDayAmount: (amount) =>
+    `크리스마스 디데이 할인: -${amount.toLocaleString()}원`,
 };
 
 const OutputView = {
@@ -43,6 +45,14 @@ const OutputView = {
   printPresent(bol) {
     this.print(OUTPUT_TITLE.presentTitle);
     this.print(OUTPUTS.presentString(bol));
+  },
+
+  printBenefitStart() {
+    this.print(OUTPUT_TITLE.benefitTitle);
+  },
+
+  printDDayBenefit(amount) {
+    if (amount) this.print(OUTPUTS.dDayAmount(amount));
   },
 
   print(string) {

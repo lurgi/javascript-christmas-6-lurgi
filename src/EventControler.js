@@ -31,6 +31,14 @@ class EventControler {
     if (TOTAL_PRICE >= 120_000) return true;
     return false;
   }
+
+  getAmountDDayDiscount() {
+    const DATE = this.getDate();
+    if (DATE <= 25) {
+      return 1000 + 100 * (DATE - 1);
+    }
+    return 0;
+  }
 }
 
 export default EventControler;
