@@ -17,6 +17,10 @@ class EventControler {
   setMenu(menu) {
     this.#menuClass = new Menu(menu);
   }
+
+  getMenu() {
+    return this.#menuClass.getMenu();
+  }
 }
 
 export default EventControler;

@@ -13,7 +13,7 @@ class App {
     await this.handleDate();
     await this.handleMenu();
     this.handlePrintDate();
-    // TODO 주문 메뉴 출력
+    this.handlePrintMenu();
     // TODO 혜택 내역 출력
     // TODO 총혜택 금액 출력
     // TODO 할인 후 예상 결제 금액 출력
@@ -43,6 +43,11 @@ class App {
   handlePrintDate() {
     const DATE = this.#eventControler.getDate();
     OutputView.printDateString(DATE);
+  }
+
+  handlePrintMenu() {
+    const MENU = this.#eventControler.getMenu();
+    OutputView.printMenu(MENU);
   }
 }
 

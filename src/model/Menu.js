@@ -100,6 +100,22 @@ class Menu {
     }
   }
 
+  getMenu() {
+    const RETURN_ARR = [];
+    this.#assignMenu(this.#appitizer, RETURN_ARR);
+    this.#assignMenu(this.#main, RETURN_ARR);
+    this.#assignMenu(this.#dessert, RETURN_ARR);
+    this.#assignMenu(this.#drink, RETURN_ARR);
+    return RETURN_ARR;
+  }
+
+  #assignMenu(hashMap, arr) {
+    const KEYS = Array.from(hashMap.keys());
+    KEYS.forEach((name) => {
+      arr.push([name, hashMap.get(name)]);
+    });
+  }
+
   //   #validPriceOver10000() {
   //     const TOTAL_PRICE = this.#getSumMenuPrice;
   //     if (TOTAL_PRICE < 10000) {
