@@ -32,29 +32,35 @@ class Menu {
   #drink = new Map();
 
   constructor(menu) {
+    let number = 0;
     menu.forEach((value) => {
       const [NAME, CNT] = value.split('-');
-      this.#validMenuDetail(NAME, CNT);
-      this.#validDuplication(NAME);
-      this.#setMenu(NAME, CNT);
+      const CNT_NUM = Number(CNT);
+      const NAME_STR = NAME.trim();
+      number += CNT_NUM;
+
+      this.#validMenuDetail(NAME_STR, CNT_NUM);
+      this.#validDuplication(NAME_STR);
+      this.#setMenu(NAME_STR, CNT_NUM);
     });
+    this.#validOver20(number);
   }
 
-  #validMenuDetail(NAME, CNT) {
+  #validMenuDetail(NAME, NUM) {
     if (!this.#isValidMenu(NAME)) {
       throw new Error('[ERROR] 메뉴 없음');
     }
-    if (Number.isNaN(Number(CNT))) {
+    if (Number.isNaN(NUM)) {
       throw new Error('[ERROR] 메뉴 수량 숫자 아님');
     }
-    if (Number(CNT) < 1) {
+    if (NUM < 1) {
       throw new Error('[ERROR] 메뉴 수량 1 미만');
     }
   }
 
   #isValidMenu(name) {
     return Boolean(
-      APPITIZER[name] || MAIN[name] || DESSERT[name] || DESSERT[name],
+      APPITIZER[name] || MAIN[name] || DESSERT[name] || DRINK[name],
     );
   }
 
@@ -74,6 +80,12 @@ class Menu {
     if (MAIN[name]) this.#main.set(name, cnt);
     if (DESSERT[name]) this.#dessert.set(name, cnt);
     if (DRINK[name]) this.#drink.set(name, cnt);
+  }
+
+  #validOver20(number) {
+    if (number > 20) {
+      throw new Error('[ERROR] 메뉴 20개 초과');
+    }
   }
 }
 
