@@ -2,6 +2,7 @@ import Date from './model/Date';
 import Menu from './model/Menu';
 
 const WEEK_END = Object.freeze([1, 2, 8, 9, 15, 16, 22, 23, 29, 30]);
+const SPECIAL_DAY = Object.freeze([3, 10, 17, 24, 25, 31]);
 
 class EventControler {
   #dateClass;
@@ -56,6 +57,11 @@ class EventControler {
   getWeekDiscount() {
     const IS_WEEKEND = this.getIsWeekend();
     return this.#menuClass.getWeekDiscount(IS_WEEKEND);
+  }
+
+  getIsSpecial() {
+    const DATE = this.getDate();
+    return SPECIAL_DAY.includes(DATE);
   }
 }
 

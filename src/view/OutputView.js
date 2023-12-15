@@ -22,6 +22,7 @@ const OUTPUTS = {
     `크리스마스 디데이 할인: -${amount.toLocaleString()}원`,
   weekDiscount: (isWeekend, amount) =>
     `${isWeekend ? '주말' : '평일'} 할인: -${amount.toLocaleString()}원`,
+  sepcial: '특별 할인: -1,000원',
   presentAmount: `증정 이벤트: -25,000원`,
 };
 
@@ -67,7 +68,13 @@ const OutputView = {
     this.print(OUTPUTS.nothing);
   },
 
-  printSpecialBenefit(isPresent) {
+  printSpecial(isSpecial) {
+    if (isSpecial) {
+      this.print(OUTPUTS.sepcial);
+    }
+  },
+
+  printPresentBenefit(isPresent) {
     if (isPresent) {
       this.print(OUTPUTS.presentAmount);
     }

@@ -77,10 +77,11 @@ class App {
     const WEEK_DISCOUNT = this.#eventControler.getWeekDiscount();
     OutputView.printWeekBenefit(IS_WEEKEND, WEEK_DISCOUNT);
 
-    // TODO 특별할인
+    const IS_SPECIAL = this.#eventControler.getIsSpecial();
+    OutputView.printSpecial(IS_SPECIAL);
 
     const IS_PRESENT = this.#eventControler.getIsPresent();
-    OutputView.printSpecialBenefit(IS_PRESENT);
+    OutputView.printPresentBenefit(IS_PRESENT);
   }
 }
 
