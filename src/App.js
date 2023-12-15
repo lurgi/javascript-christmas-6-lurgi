@@ -1,6 +1,9 @@
+import OutputView from './view/OutputView';
+
 class App {
   async run() {
     // TODO 시작 출력
+    OutputView.printStart();
     // TODO 날짜 입력
     // TODO 메뉴 입력
     // TODO 미리보기 문구 출력
