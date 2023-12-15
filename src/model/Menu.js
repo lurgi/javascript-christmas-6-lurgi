@@ -44,6 +44,7 @@ class Menu {
       this.#setMenu(NAME_STR, CNT_NUM);
     });
     this.#validOver20(number);
+    this.#validOnlyDrink();
   }
 
   #validMenuDetail(NAME, NUM) {
@@ -87,6 +88,41 @@ class Menu {
       throw new Error('[ERROR] 메뉴 20개 초과');
     }
   }
+
+  #validOnlyDrink() {
+    if (
+      !this.#appitizer.size &&
+      !this.#main.size &&
+      !this.#dessert.size &&
+      this.#drink.size
+    ) {
+      throw new Error('[ERROR] 음료만 주문 불가');
+    }
+  }
+
+  //   #validPriceOver10000() {
+  //     const TOTAL_PRICE = this.#getSumMenuPrice;
+  //     if (TOTAL_PRICE < 10000) {
+  //       throw new Error('[ERROR] 가격 1만원 미만');
+  //     }
+  //   }
+
+  //   #getSumMenuPrice() {
+  //     const APPITIZER_PRICE = this.#getEachMenuPrice(this.#appitizer, APPITIZER);
+  //     const MAIN_PRICE = this.#getEachMenuPrice(this.#main, MAIN);
+  //     const DESSERT_PRICE = this.#getEachMenuPrice(this.#dessert, DESSERT);
+  //     const DRINK_PRICE = this.#getEachMenuPrice(this.#drink, DRINK);
+  //     return APPITIZER_PRICE + MAIN_PRICE + DESSERT_PRICE + DRINK_PRICE;
+  //   }
+
+  //   #getEachMenuPrice(hashMap, constant) {
+  //     const KEYS = hashMap.keys();
+  //     let sum = 0;
+  //     KEYS.forEach((menu) => {
+  //       sum += constant[menu] * this.#appitizer[menu];
+  //     });
+  //     return sum;
+  //   }
 }
 
 export default Menu;
