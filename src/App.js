@@ -65,7 +65,10 @@ class App {
   handleBenefit() {
     OutputView.printBenefitStart();
 
-    // TODO 만원 넘는지 확인
+    if (this.#eventControler.getUnder10000()) {
+      OutputView.printNothing();
+      return;
+    }
 
     const D_DAY_DISCOUNT = this.#eventControler.getAmountDDayDiscount();
     OutputView.printDDayBenefit(D_DAY_DISCOUNT);
@@ -74,8 +77,10 @@ class App {
     const WEEK_DISCOUNT = this.#eventControler.getWeekDiscount();
     OutputView.printWeekBenefit(IS_WEEKEND, WEEK_DISCOUNT);
 
-    // TODO 특별 할인
-    // TODO 증정 이벤트
+    // TODO 특별할인
+
+    const IS_PRESENT = this.#eventControler.getIsPresent();
+    OutputView.printSpecialBenefit(IS_PRESENT);
   }
 }
 

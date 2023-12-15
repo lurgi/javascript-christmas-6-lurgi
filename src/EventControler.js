@@ -34,6 +34,12 @@ class EventControler {
     return false;
   }
 
+  getUnder10000() {
+    const TOTAL_PRICE = this.#menuClass.getSumMenuPrice();
+    if (TOTAL_PRICE < 10_000) return true;
+    return false;
+  }
+
   getAmountDDayDiscount() {
     const DATE = this.getDate();
     if (DATE <= 25) {

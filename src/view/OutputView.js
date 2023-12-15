@@ -12,6 +12,7 @@ const OUTPUT_TITLE = {
 
 const OUTPUTS = {
   start: '안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.',
+  nothing: '없음',
   dateString: (date) =>
     `12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`,
   menuString: (name, cnt) => `${name} ${cnt}개`,
@@ -21,6 +22,7 @@ const OUTPUTS = {
     `크리스마스 디데이 할인: -${amount.toLocaleString()}원`,
   weekDiscount: (isWeekend, amount) =>
     `${isWeekend ? '주말' : '평일'} 할인: -${amount.toLocaleString()}원`,
+  presentAmount: `증정 이벤트: -25,000원`,
 };
 
 const OutputView = {
@@ -59,6 +61,16 @@ const OutputView = {
 
   printWeekBenefit(isWeekend, amount) {
     this.print(OUTPUTS.weekDiscount(isWeekend, amount));
+  },
+
+  printNothing() {
+    this.print(OUTPUTS.nothing);
+  },
+
+  printSpecialBenefit(isPresent) {
+    if (isPresent) {
+      this.print(OUTPUTS.presentAmount);
+    }
   },
 
   print(string) {

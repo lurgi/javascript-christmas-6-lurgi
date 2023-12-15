@@ -116,13 +116,6 @@ class Menu {
     });
   }
 
-  //   #validPriceOver10000() {
-  //     const TOTAL_PRICE = this.#getSumMenuPrice;
-  //     if (TOTAL_PRICE < 10000) {
-  //       throw new Error('[ERROR] 가격 1만원 미만');
-  //     }
-  //   }
-
   getSumMenuPrice() {
     const APPITIZER_PRICE = this.#getEachMenuPrice(this.#appitizer, APPITIZER);
     const MAIN_PRICE = this.#getEachMenuPrice(this.#main, MAIN);
