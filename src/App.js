@@ -8,10 +8,21 @@ class App {
   async run() {
     OutputView.printStart();
 
-    this.#eventControler = new EventControler();
+    this.setEventControler();
+    await this.handleInput();
+    this.handleOutput();
+  }
 
+  setEventControler() {
+    this.#eventControler = new EventControler();
+  }
+
+  async handleInput() {
     await this.handleDate();
     await this.handleMenu();
+  }
+
+  handleOutput() {
     this.handlePrintDate();
     this.handlePrintMenu();
     this.handlePrintAmountBeforeDiscount();

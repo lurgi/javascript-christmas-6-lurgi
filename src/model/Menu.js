@@ -22,6 +22,8 @@ const DRINK = {
   샴페인: 25_000,
 };
 
+const ERROR_MESSAGE = '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.';
+
 class Menu {
   #appitizer = new Map();
 
@@ -49,13 +51,13 @@ class Menu {
 
   #validMenuDetail(NAME, NUM) {
     if (!this.#isValidMenu(NAME)) {
-      throw new Error('[ERROR] 메뉴 없음');
+      throw new Error(ERROR_MESSAGE);
     }
     if (Number.isNaN(NUM)) {
-      throw new Error('[ERROR] 메뉴 수량 숫자 아님');
+      throw new Error(ERROR_MESSAGE);
     }
     if (NUM < 1) {
-      throw new Error('[ERROR] 메뉴 수량 1 미만');
+      throw new Error(ERROR_MESSAGE);
     }
   }
 
@@ -72,7 +74,7 @@ class Menu {
       this.#dessert.get(name) ||
       this.#drink.get(name)
     ) {
-      throw new Error('[ERROR] 메뉴 중복');
+      throw new Error(ERROR_MESSAGE);
     }
   }
 
@@ -85,7 +87,7 @@ class Menu {
 
   #validOver20(number) {
     if (number > 20) {
-      throw new Error('[ERROR] 메뉴 20개 초과');
+      throw new Error(ERROR_MESSAGE);
     }
   }
 
@@ -96,7 +98,7 @@ class Menu {
       !this.#dessert.size &&
       this.#drink.size
     ) {
-      throw new Error('[ERROR] 음료만 주문 불가');
+      throw new Error(ERROR_MESSAGE);
     }
   }
 

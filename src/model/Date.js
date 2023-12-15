@@ -1,3 +1,5 @@
+const ERROR_MESSAGE = '[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.';
+
 class Date {
   #date;
 
@@ -8,10 +10,10 @@ class Date {
 
   #validDate(date) {
     if (Number.isNaN(date)) {
-      throw new Error('[ERROR] 숫자 아님');
+      throw new Error(ERROR_MESSAGE);
     }
     if (date < 1 || date > 31) {
-      throw new Error('[ERROR] 1~31 숫자만 입력');
+      throw new Error(ERROR_MESSAGE);
     }
   }
 

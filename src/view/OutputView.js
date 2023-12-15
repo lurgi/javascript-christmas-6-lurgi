@@ -35,6 +35,7 @@ const OUTPUTS = {
     if (amount <= -5_000) {
       return '별';
     }
+    return '없음';
   },
 };
 
