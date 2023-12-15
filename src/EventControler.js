@@ -25,6 +25,12 @@ class EventControler {
   getAmountBeforeDiscount() {
     return this.#menuClass.getSumMenuPrice();
   }
+
+  isPresent() {
+    const TOTAL_PRICE = this.#menuClass.getSumMenuPrice();
+    if (TOTAL_PRICE >= 120_000) return true;
+    return false;
+  }
 }
 
 export default EventControler;

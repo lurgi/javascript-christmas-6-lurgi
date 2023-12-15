@@ -15,7 +15,7 @@ class App {
     this.handlePrintDate();
     this.handlePrintMenu();
     this.handlePrintAmountBeforeDiscount();
-    // TODO 증정 메뉴 출력 (샴페인 or 없음))
+    this.handlePrintPresent();
     // TODO 혜택 내역 출력
     // TODO 총혜택 금액 출력
     // TODO 할인 후 예상 결제 금액 출력
@@ -55,6 +55,11 @@ class App {
   handlePrintAmountBeforeDiscount() {
     const AMOUNT_PRICE = this.#eventControler.getAmountBeforeDiscount();
     OutputView.printAMountBeforeDiscount(AMOUNT_PRICE);
+  }
+
+  handlePrintPresent() {
+    const PRESSENT_BOL = this.#eventControler.isPresent();
+    OutputView.printPresent(PRESSENT_BOL);
   }
 }
 
