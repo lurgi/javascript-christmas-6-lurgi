@@ -19,7 +19,7 @@ class App {
     this.handleBenefit();
     this.handleTotalBenefitAmount();
     this.handleAmountAfterDiscount();
-    // TODO 뱃지 출력
+    this.handleBadge();
   }
 
   async handleDate() {
@@ -96,6 +96,11 @@ class App {
   handleAmountAfterDiscount() {
     const AMOUNT_AFTER_DISCOUNT = this.#eventControler.getAmountAfterDiscount();
     OutputView.printAmountAfterDiscount(AMOUNT_AFTER_DISCOUNT);
+  }
+
+  handleBadge() {
+    const AMOUNT_BENEFIT = this.#eventControler.getTotalBenefitAmount();
+    OutputView.printBadge(AMOUNT_BENEFIT);
   }
 }
 

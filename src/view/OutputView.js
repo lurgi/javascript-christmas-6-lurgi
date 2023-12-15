@@ -25,6 +25,17 @@ const OUTPUTS = {
   sepcial: '특별 할인: -1,000원',
   presentAmount: `증정 이벤트: -25,000원`,
   amountString: (amount) => `${amount.toLocaleString()}원`,
+  badge: (amount) => {
+    if (amount <= -20_000) {
+      return '산타';
+    }
+    if (amount <= -10_000) {
+      return '트리';
+    }
+    if (amount <= -5_000) {
+      return '별';
+    }
+  },
 };
 
 const OutputView = {
@@ -89,6 +100,11 @@ const OutputView = {
   printAmountAfterDiscount(amount) {
     this.print(OUTPUT_TITLE.amountAfterDiscountTitle);
     this.print(OUTPUTS.amountString(amount));
+  },
+
+  printBadge(amount) {
+    this.print(OUTPUT_TITLE.badgeTitle);
+    this.print(OUTPUTS.badge(amount));
   },
 
   print(string) {
