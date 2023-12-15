@@ -1,17 +1,34 @@
+import EventControler from './EventControler';
+import InputView from './view/InputView';
 import OutputView from './view/OutputView';
 
 class App {
+  #eventControler;
+
   async run() {
-    // TODO 시작 출력
     OutputView.printStart();
-    // TODO 날짜 입력
-    // TODO 메뉴 입력
+
+    this.#eventControler = new EventControler();
+
+    await this.handleDate();
+    // await this.handleMenu();
+
     // TODO 미리보기 문구 출력
     // TODO 주문 메뉴 출력
     // TODO 혜택 내역 출력
     // TODO 총혜택 금액 출력
     // TODO 할인 후 예상 결제 금액 출력
     // TODO 뱃지 출력
+  }
+
+  async handleDate() {
+    try {
+      const INPUT = await InputView.readDate();
+      this.#eventControler.setDate(INPUT);
+    } catch (error) {
+      OutputView.printString(error.message);
+      await this.handleDate();
+    }
   }
 }
 
